@@ -1,13 +1,19 @@
 package com.sillybubbles.game.android;
 
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
@@ -26,23 +32,38 @@ import java.util.Locale;
 public class AndroidLauncher extends AndroidApplication implements AdsController {
 
     // live ID
-    private static final String BANNER_AD_UNIT_ID = "ca-app-pub-2390888048112065/4633106838";
+    // private static final String BANNER_AD_UNIT_ID = "ca-app-pub-2390888048112065/4633106838";
     // dummy ID
-    //private static final String BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/6300978111";
+    private static final String BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/6300978111";
 
     AdView bannerAd;
 
     // live ID
-    private static final String INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-2390888048112065/5411836032";
+    // private static final String INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-2390888048112065/5411836032";
     // dummy ID
-    //private static final String INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712";
+    private static final String INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712";
 
     InterstitialAd interstitialAd;
+
+    private static final int REQUEST_WRITE_STORAGE = 112;
 
     @Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+
+        boolean hasPermission = (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+        if (!hasPermission) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_WRITE_STORAGE);
+        }
+
+        // Check write permissions
+        //int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        Log.d("JSLOG", "Permission check is: " + ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE));
 
         // Create a gameView and bannerAd AdView
         View gameView = initializeForView(new SillyBubblesGame(this), config);
@@ -127,6 +148,24 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
                 interstitialAd.show();
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        //super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode)
+        {
+            case REQUEST_WRITE_STORAGE: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+
+                } else
+                {
+                    Toast.makeText(this, "The app was not allowed to write to your storage. Hence, it cannot function properly. Please consider granting it this permission", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+
     }
 }
 //bottom banner admob unit id

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -32,6 +34,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+import java.io.IOException;
+import java.util.Date;
 import java.util.Random;
 
 public class SillyBubblesGame extends Game {
@@ -837,11 +841,9 @@ public class SillyBubblesGame extends Game {
         Gdx.app.log("JSLOG", "screenType is " + screenType.toString());
 
         // setting up font
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("chinese.ttf"));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("cartoon.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         FreeTypeFontGenerator.FreeTypeFontParameter parameterLarge = new FreeTypeFontGenerator.FreeTypeFontParameter();
-
-
 
         // set font size based on screen type
         if (screenType == ScreenType.XXXHDPI){
@@ -879,11 +881,11 @@ public class SillyBubblesGame extends Game {
             parameter.borderWidth = 1;
             parameterLarge.size = 18;
             parameterLarge.borderWidth = 1;
-
         }
 
         parameter.borderColor = Color.BLACK;
-        parameter.characters = "0123456789.!?-集宝箱砰你得候着啦哈的忠诚毋庸置疑太漂亮了就是泡大师王真吗终极超级忠诚都在这儿小伙伴们棒截屏已保存好";
+        //parameter.characters = "0123456789.!?-集宝箱砰你得候着啦哈的忠诚毋庸置疑太漂亮了就是泡大师王真吗终极超级忠诚都在这儿小伙伴们棒截屏已保存好";
+        parameter.characters = "0123456789.!?-ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
         textFont = generator.generateFont(parameter);
         //textFont = generator.generateFont(40, "0123456789。!？-集宝箱砰你得候着啦哈的忠诚毋庸置疑太漂亮了就是泡大师王真吗终极超级忠诚都在这儿小伙伴们棒截屏已保存好", false);
@@ -947,28 +949,28 @@ public class SillyBubblesGame extends Game {
         Label.LabelStyle labelStyle = new Label.LabelStyle(textFont, Color.WHITE);
         Label.LabelStyle labelStyleLarge = new Label.LabelStyle(textFontLarge, Color.YELLOW);
 
-        bubbleLabel = new Label(" " + bubbleItem.itemCount, labelStyle);
-        diamondLabel = new Label(" " + diamondItem.itemCount, labelStyle);
+        bubbleLabel = new Label("  " + bubbleItem.itemCount, labelStyle);
+        diamondLabel = new Label("  " + diamondItem.itemCount, labelStyle);
         firstAidLabel = new Label("  " + firstAidItem.itemCount, labelStyle);
-        starLabel = new Label(" " + starItem.itemCount, labelStyle);
-        bookLabel = new Label(" " + bookItem.itemCount, labelStyle);
+        starLabel = new Label("  " + starItem.itemCount, labelStyle);
+        bookLabel = new Label("  " + bookItem.itemCount, labelStyle);
         crystalLabel = new Label("  " + crystalItem.itemCount, labelStyle);
-        ringLabel = new Label(" " + ringItem.itemCount, labelStyle);
-        jewel1Label = new Label(" " + jewel1Item.itemCount, labelStyle);
-        jewel2Label = new Label(" " + jewel2Item.itemCount, labelStyle);
-        jewel3Label = new Label(" " + jewel3Item.itemCount, labelStyle);
-        dragonLabel = new Label(" " + dragonItem.itemCount, labelStyle);
+        ringLabel = new Label("  " + ringItem.itemCount, labelStyle);
+        jewel1Label = new Label("  " + jewel1Item.itemCount, labelStyle);
+        jewel2Label = new Label("  " + jewel2Item.itemCount, labelStyle);
+        jewel3Label = new Label("  " + jewel3Item.itemCount, labelStyle);
+        dragonLabel = new Label("  " + dragonItem.itemCount, labelStyle);
         redDiamondLabel = new Label("  " + redDiamondItem.itemCount, labelStyle);
-        cameraLabel = new Label(" " + cameraItem.itemCount, labelStyle);
-        purpleBookLabel = new Label(" " + purpleBookItem.itemCount, labelStyle);
+        cameraLabel = new Label("  " + cameraItem.itemCount, labelStyle);
+        purpleBookLabel = new Label("  " + purpleBookItem.itemCount, labelStyle);
         appleLabel = new Label("  " + appleItem.itemCount, labelStyle);
-        brownBookLabel = new Label(" " + brownBookItem.itemCount, labelStyle);
-        breadLabel = new Label(" " + breadItem.itemCount, labelStyle);
-        burgerLabel = new Label(" " + burgerItem.itemCount, labelStyle);
-        pizzaLabel = new Label(" " + pizzaItem.itemCount, labelStyle);
-        rocketPenguinLabel = new Label(" " + rocketPenguinItem.itemCount, labelStyle);
-        collectionLabel = new Label("-集宝箱-", labelStyle);
-        niceLabel = new Label("好极了!", labelStyle);
+        brownBookLabel = new Label("  " + brownBookItem.itemCount, labelStyle);
+        breadLabel = new Label("  " + breadItem.itemCount, labelStyle);
+        burgerLabel = new Label("  " + burgerItem.itemCount, labelStyle);
+        pizzaLabel = new Label("  " + pizzaItem.itemCount, labelStyle);
+        rocketPenguinLabel = new Label("  " + rocketPenguinItem.itemCount, labelStyle);
+        collectionLabel = new Label("-Your Collection-", labelStyle);
+        niceLabel = new Label("Nice!", labelStyle);
 
         // adding the menu back button
         final TextureRegion bubbleBackButtonTexture = new TextureRegion(new Texture("backbutton.png"));
@@ -985,69 +987,69 @@ public class SillyBubblesGame extends Game {
         // impossibly rare items
         scrollTable.add(collectionLabel).colspan(2);
         scrollTable.row();
-        scrollTable.add(ringImage).left();
+        scrollTable.add(ringImage).left().pad(10);
         scrollTable.add(ringLabel);
         scrollTable.row();
         // insanely rare items
-        scrollTable.add(dragonImage).left();
+        scrollTable.add(dragonImage).left().pad(10);
         scrollTable.add(dragonLabel);
         scrollTable.row();
-        scrollTable.add(rocketPenguinImage).left();
+        scrollTable.add(rocketPenguinImage).left().pad(10);
         scrollTable.add(rocketPenguinLabel);
         scrollTable.row();
-        scrollTable.add(redDiamondImage).left();
+        scrollTable.add(redDiamondImage).left().pad(10);
         scrollTable.add(redDiamondLabel);
         scrollTable.row();
         // ultra rare items
-        scrollTable.add(jewel1Image).left();
+        scrollTable.add(jewel1Image).left().pad(10);
         scrollTable.add(jewel1Label);
         scrollTable.row();
-        scrollTable.add(jewel2Image).left();
+        scrollTable.add(jewel2Image).left().pad(10);
         scrollTable.add(jewel2Label);
         scrollTable.row();
         // very rare items
-        scrollTable.add(bookImage).left();
+        scrollTable.add(bookImage).left().pad(10);
         scrollTable.add(bookLabel);
         scrollTable.row();
-        scrollTable.add(cameraImage).left();
+        scrollTable.add(cameraImage).left().pad(10);
         scrollTable.add(cameraLabel);
         scrollTable.row();
         // fairly rare items
-        scrollTable.add(crystalImage).left();
+        scrollTable.add(crystalImage).left().pad(10);
         scrollTable.add(crystalLabel);
         scrollTable.row();
-        scrollTable.add(purpleBookImage).left();
+        scrollTable.add(purpleBookImage).left().pad(10);
         scrollTable.add(purpleBookLabel);
         scrollTable.row();
-        scrollTable.add(appleImage).left();
+        scrollTable.add(appleImage).left().pad(10);
         scrollTable.add(appleLabel);
         scrollTable.row();
-        scrollTable.add(jewel3Image).left();
+        scrollTable.add(jewel3Image).left().pad(10);
         scrollTable.add(jewel3Label);
         scrollTable.row();
         // common items
-        scrollTable.add(brownBookImage).left();
+        scrollTable.add(brownBookImage).left().pad(10);
         scrollTable.add(brownBookLabel);
         scrollTable.row();
-        scrollTable.add(burgerImage).left();
+        scrollTable.add(burgerImage).left().pad(10);
         scrollTable.add(burgerLabel);
         scrollTable.row();
-        scrollTable.add(pizzaImage).left();
+        scrollTable.add(pizzaImage).left().pad(10);
         scrollTable.add(pizzaLabel);
         scrollTable.row();
-        scrollTable.add(firstAidImage).left();
+        scrollTable.add(firstAidImage).left().pad(10);
         scrollTable.add(firstAidLabel);
         scrollTable.row();
-        scrollTable.add(diamondImage).left();
+        scrollTable.add(diamondImage).left().pad(10);
         scrollTable.add(diamondLabel);
         scrollTable.row();
-        scrollTable.add(breadImage).left();
+        scrollTable.add(breadImage).left().pad(10);
         scrollTable.add(breadLabel);
         scrollTable.row();
-        scrollTable.add(starImage).left();
+        scrollTable.add(starImage).left().pad(10);
         scrollTable.add(starLabel);
         scrollTable.row();
-        scrollTable.add(bubbleImage).left();
+        scrollTable.add(bubbleImage).left().pad(10);
         scrollTable.add(bubbleLabel);
         scrollTable.row();
         scrollTable.add(niceLabel).colspan(2);
@@ -1319,29 +1321,29 @@ public class SillyBubblesGame extends Game {
         Gdx.input.setInputProcessor(stage);
 
         // for waiting
-        waitingLabel = new Label("砰! 你得候着啦! 哈哈哈!", labelStyle);
+        waitingLabel = new Label("Bomb! You must wait. Ha ha ha.", labelStyle);
         waitingCounterLabel = new Label("0", labelStyleLarge);
         if(bubbleItem.itemCount > 1000) {
             //print
-            waitingLabel = new Label("你的忠诚毋庸置疑. 太漂亮了!", labelStyle);
+            waitingLabel = new Label("Your loyalty is unquestionable. Props.", labelStyle);
         }
         if(bubbleItem.itemCount > 10000) {
-            waitingLabel = new Label("你就是泡泡大师!", labelStyle);
+            waitingLabel = new Label("You are bubble master.", labelStyle);
         }
         if(bubbleItem.itemCount > 25000) {
-            waitingLabel = new Label("泡泡王!", labelStyle);
+            waitingLabel = new Label("Bubble king!!", labelStyle);
         }
         if(bubbleItem.itemCount > 50000) {
-            waitingLabel = new Label("真的吗? 终极泡泡王!", labelStyle);
+            waitingLabel = new Label("Really? All Hail Bubble King!", labelStyle);
         }
         if(bubbleItem.itemCount > 100000) {
-            waitingLabel = new Label("超级忠诚", labelStyle);
+            waitingLabel = new Label("Extreme Loyalty.", labelStyle);
         }
         if(bubbleItem.itemCount > 500000) {
-            waitingLabel = new Label("都在这儿啦! 小伙伴们.", labelStyle);
+            waitingLabel = new Label("That's all folks!", labelStyle);
         }
         if(bubbleItem.itemCount > 1000000) {
-            waitingLabel = new Label("你真棒!", labelStyle);
+            waitingLabel = new Label("You Rule.", labelStyle);
         }
         waitingCounterLabel.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         waitingLabel.setPosition(0, 0);
@@ -1349,7 +1351,7 @@ public class SillyBubblesGame extends Game {
         waitingStage.addActor(waitingLabel);
 
         // screenshot saved label
-        screenshotSavedLabel = new Label("截屏已保存.", labelStyle);
+        screenshotSavedLabel = new Label("Screenshot Saved.", labelStyle);
         screenshotSavedLabel.setPosition((Gdx.graphics.getWidth() / 2)/2, 0);
 
         // show banner ad if connected
@@ -1358,6 +1360,7 @@ public class SillyBubblesGame extends Game {
         }
 
         //play music
+        mp3Music.setLooping(true);
         mp3Music.play();
         mp3Music.setVolume(VOLUME);
 
@@ -1475,12 +1478,24 @@ public class SillyBubblesGame extends Game {
 	}
 
     public void takeScreenshot() {
-        byte[] pixels = ScreenUtils.getFrameBufferPixels(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
-        Pixmap pixmap = new Pixmap(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), Pixmap.Format.RGBA8888);
-        BufferUtils.copy(pixels, 0, pixmap.getPixels(), pixels.length);
-        PixmapIO.writePNG(Gdx.files.external("SillyBubbles/sillybubblescapture.png"), pixmap);
-        pixmap.dispose();
-        Gdx.app.log("JSLOG", "Screenshot saved as SillyBubbles/sillybubblescapture.png");
+
+        Date date = new Date(TimeUtils.millis());
+
+        Gdx.app.log("JSLOG", "isExternalStorageAvailable: " + Gdx.files.isExternalStorageAvailable());
+
+        FileHandle file;
+        file = new FileHandle(Gdx.files.getExternalStoragePath() + "sillybubbles" + date.toString() + ".png");
+        Gdx.app.log("JSLOG", "saved to: " + file.toString());
+           System.out.println(file.file().getAbsolutePath());
+            Pixmap pixmap = ScreenUtils.getFrameBufferPixmap(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            try {
+                PixmapIO.PNG writer = new PixmapIO.PNG((int) (pixmap.getWidth() * pixmap.getHeight() * 1.5f));
+                writer.write(file, pixmap);
+                writer.write(file, pixmap); // Write twice to make sure the object is reusable.
+                writer.dispose();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
     }
 
     public static void muteFX(){
@@ -1492,3 +1507,4 @@ public class SillyBubblesGame extends Game {
         soundOn = true;
     }
 }
+
