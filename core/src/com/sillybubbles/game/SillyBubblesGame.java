@@ -1484,22 +1484,25 @@ public class SillyBubblesGame extends Game {
     public void takeScreenshot() {
 
         Date date = new Date(TimeUtils.millis());
-
-        Gdx.app.log("JSLOG", "isExternalStorageAvailable: " + Gdx.files.isExternalStorageAvailable());
-
         FileHandle file;
-        file = new FileHandle(Gdx.files.getExternalStoragePath() + "sillybubbles" + date.toString() + ".png");
-        Gdx.app.log("JSLOG", "saved to: " + file.toString());
-           System.out.println(file.file().getAbsolutePath());
-            Pixmap pixmap = ScreenUtils.getFrameBufferPixmap(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-            try {
-                PixmapIO.PNG writer = new PixmapIO.PNG((int) (pixmap.getWidth() * pixmap.getHeight() * 1.5f));
-                writer.write(file, pixmap);
-                writer.write(file, pixmap); // Write twice to make sure the object is reusable.
-                writer.dispose();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+
+        String dateResult = date.toString().replaceAll("[-+.^:,]","");
+
+        file = new FileHandle(Gdx.files.getExternalStoragePath() + "sillybubbles" + dateResult + ".png");
+        //} while(file.exists());
+
+       System.out.println(file.file().getAbsolutePath());
+        Pixmap pixmap = ScreenUtils.getFrameBufferPixmap(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        try {
+            PixmapIO.PNG writer = new PixmapIO.PNG((int) (pixmap.getWidth() * pixmap.getHeight() * 1.5f));
+            writer.write(file, pixmap);
+            writer.write(file, pixmap); // Write twice to make sure the object is reusable.
+            writer.dispose();
+            Gdx.app.log("JSLOG", "saved to: " + file.toString());
+
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     public static void muteFX(){
