@@ -35,6 +35,7 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
     // private static final String BANNER_AD_UNIT_ID = "ca-app-pub-2390888048112065/4633106838";
     // dummy ID
     private static final String BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/6300978111";
+    private boolean canWrite = true;
 
     AdView bannerAd;
 
@@ -107,6 +108,16 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
     }
 
     @Override
+    public boolean canWriteExternal() {
+
+        if(canWrite) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public void showBannerAd() {
         runOnUiThread(new Runnable() {
             @Override
@@ -152,22 +163,24 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        //super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode)
         {
             case REQUEST_WRITE_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 {
-
+                    Toast.makeText(this, "Silly Bubbles can now save screenshots!", Toast.LENGTH_LONG).show();
+                    canWrite = true;
                 } else
                 {
-                    Toast.makeText(this, "The app was not allowed to write to your storage. Hence, it cannot function properly. Please consider granting it this permission", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Silly Bubbles needs your permission to save screenshots!", Toast.LENGTH_LONG).show();
+                    canWrite = false;
                 }
             }
         }
-
     }
 }
+
 //bottom banner admob unit id
 //ca-app-pub-2390888048112065/4633106838
 //interstitial admob unit id

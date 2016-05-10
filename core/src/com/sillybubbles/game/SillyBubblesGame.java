@@ -1315,7 +1315,9 @@ public class SillyBubblesGame extends Game {
         // menu stage actors
         menuStage.addActor(table);
         menuStage.addActor(bubbleBackButton);
-        menuStage.addActor(screenShotButton);
+        if(adsController.canWriteExternal()) {
+            menuStage.addActor(screenShotButton);
+        }
 
         // get input
         Gdx.input.setInputProcessor(stage);
@@ -1350,7 +1352,6 @@ public class SillyBubblesGame extends Game {
         waitingStage.addActor(waitingCounterLabel);
         waitingStage.addActor(waitingLabel);
 
-        // screenshot saved label
         screenshotSavedLabel = new Label("Screenshot Saved.", labelStyle);
         screenshotSavedLabel.setPosition((Gdx.graphics.getWidth() / 2)/2, 0);
 
@@ -1367,6 +1368,7 @@ public class SillyBubblesGame extends Game {
     }
 
     private AdsController adsController;
+
 
     public SillyBubblesGame(AdsController adsController){
         this.adsController = adsController;
@@ -1405,7 +1407,9 @@ public class SillyBubblesGame extends Game {
         }
 
         if (needScreenshot) {
-            takeScreenshot();
+            if (adsController.canWriteExternal()) {
+                takeScreenshot();
+            }
             menuStage.addActor(screenshotSavedLabel);
             needScreenshot = false;
         }
