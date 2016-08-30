@@ -884,8 +884,8 @@ public class SillyBubblesGame extends Game {
         }
 
         parameter.borderColor = Color.BLACK;
-        //parameter.characters = "0123456789.!?-集宝箱砰你得候着啦哈的忠诚毋庸置疑太漂亮了就是泡大师王真吗终极超级忠诚都在这儿小伙伴们棒截屏已保存好";
-        parameter.characters = "0123456789.!?-ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        parameter.characters = "0123456789.!?-集宝箱砰你得候着啦哈的忠诚毋庸置疑太漂亮了就是泡大师王真吗终极超级忠诚都在这儿小伙伴们棒截屏已保存好";
+        //parameter.characters = "0123456789.!?-ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
         textFont = generator.generateFont(parameter);
         //textFont = generator.generateFont(40, "0123456789。!？-集宝箱砰你得候着啦哈的忠诚毋庸置疑太漂亮了就是泡大师王真吗终极超级忠诚都在这儿小伙伴们棒截屏已保存好", false);
@@ -921,7 +921,6 @@ public class SillyBubblesGame extends Game {
         burgerItem.itemCount = prefs.getInteger(burgerItem.itemName);
         pizzaItem.itemCount = prefs.getInteger(pizzaItem.itemName);
         rocketPenguinItem.itemCount = prefs.getInteger(rocketPenguinItem.itemName);
-
 
         // Item images used in menu screen
         Image bubbleImage = new Image(new TextureRegion((new Texture("bubblesmall.png"))));
@@ -1323,36 +1322,37 @@ public class SillyBubblesGame extends Game {
         Gdx.input.setInputProcessor(stage);
 
         // for waiting
-        waitingLabel = new Label("Bomb! You must wait. Ha ha ha.", labelStyle);
+        waitingLabel = new Label("砰! 你得候着啦! 哈哈哈!", labelStyle);
         waitingCounterLabel = new Label("0", labelStyleLarge);
         if(bubbleItem.itemCount > 1000) {
             //print
-            waitingLabel = new Label("Your loyalty is unquestionable. Props.", labelStyle);
+            waitingLabel = new Label("你的忠诚毋庸置疑. 太漂亮了!", labelStyle);
         }
         if(bubbleItem.itemCount > 10000) {
-            waitingLabel = new Label("You are bubble master.", labelStyle);
+            waitingLabel = new Label("你就是泡泡大师!", labelStyle);
         }
         if(bubbleItem.itemCount > 25000) {
-            waitingLabel = new Label("Bubble king!!", labelStyle);
+            waitingLabel = new Label("泡泡王!", labelStyle);
         }
         if(bubbleItem.itemCount > 50000) {
-            waitingLabel = new Label("Really? All Hail Bubble King!", labelStyle);
+            waitingLabel = new Label("真的吗? 终极泡泡王!", labelStyle);
         }
         if(bubbleItem.itemCount > 100000) {
-            waitingLabel = new Label("Extreme Loyalty.", labelStyle);
+            waitingLabel = new Label("超级忠诚", labelStyle);
         }
         if(bubbleItem.itemCount > 500000) {
-            waitingLabel = new Label("That's all folks!", labelStyle);
+            waitingLabel = new Label("都在这儿啦! 小伙伴们.", labelStyle);
         }
         if(bubbleItem.itemCount > 1000000) {
-            waitingLabel = new Label("You Rule.", labelStyle);
+            waitingLabel = new Label("你真棒!", labelStyle);
         }
         waitingCounterLabel.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         waitingLabel.setPosition(0, 0);
         waitingStage.addActor(waitingCounterLabel);
         waitingStage.addActor(waitingLabel);
 
-        screenshotSavedLabel = new Label("Screenshot Saved.", labelStyle);
+        // screenshot saved label
+        screenshotSavedLabel = new Label("截屏已保存.", labelStyle);
         screenshotSavedLabel.setPosition((Gdx.graphics.getWidth() / 2)/2, 0);
 
         // show banner ad if connected
@@ -1486,7 +1486,7 @@ public class SillyBubblesGame extends Game {
         Date date = new Date(TimeUtils.millis());
         FileHandle file;
 
-        String dateResult = date.toString().replaceAll("[-+.^:,]","");
+        String dateResult = date.toString().replaceAll("[-+.^:,]", "");
 
         file = new FileHandle(Gdx.files.getExternalStoragePath() + "sillybubbles" + dateResult + ".png");
         //} while(file.exists());

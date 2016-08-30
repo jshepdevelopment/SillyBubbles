@@ -32,17 +32,17 @@ import java.util.Locale;
 public class AndroidLauncher extends AndroidApplication implements AdsController {
 
     // live ID
-    // private static final String BANNER_AD_UNIT_ID = "ca-app-pub-2390888048112065/4633106838";
+    private static final String BANNER_AD_UNIT_ID = "ca-app-pub-2390888048112065/4633106838";
     // dummy ID
-    private static final String BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/6300978111";
+    // private static final String BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/6300978111";
     private boolean canWrite = true;
 
     AdView bannerAd;
 
     // live ID
-    // private static final String INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-2390888048112065/5411836032";
+    private static final String INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-2390888048112065/5411836032";
     // dummy ID
-    private static final String INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712";
+    // private static final String INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712";
 
     InterstitialAd interstitialAd;
 
@@ -169,11 +169,11 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
             case REQUEST_WRITE_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 {
-                    Toast.makeText(this, "Silly Bubbles can now save screenshots!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "截图!", Toast.LENGTH_LONG).show();
                     canWrite = true;
                 } else
                 {
-                    Toast.makeText(this, "Silly Bubbles needs your permission to save screenshots!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "没有截图...", Toast.LENGTH_LONG).show();
                     canWrite = false;
                 }
             }
